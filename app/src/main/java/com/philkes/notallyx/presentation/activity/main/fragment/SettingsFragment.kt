@@ -18,7 +18,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity.RESULT_OK
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -36,6 +35,7 @@ import com.philkes.notallyx.databinding.PreferenceSeekbarBinding
 import com.philkes.notallyx.databinding.TextInputDialogBinding
 import com.philkes.notallyx.presentation.canAuthenticateWithBiometrics
 import com.philkes.notallyx.presentation.checkedTag
+import com.philkes.notallyx.presentation.getUriForFile
 import com.philkes.notallyx.presentation.setupImportProgressDialog
 import com.philkes.notallyx.presentation.setupProgressDialog
 import com.philkes.notallyx.presentation.view.misc.MenuDialog
@@ -383,7 +383,7 @@ class SettingsFragment : Fragment() {
         val app = requireContext().applicationContext as Application
         val log = Operations.getLog(app)
         if (log.exists()) {
-            val uri = FileProvider.getUriForFile(app, "${app.packageName}.provider", log)
+            val uri = app.getUriForFile(log)
             intent.putExtra(Intent.EXTRA_STREAM, uri)
         }
 
